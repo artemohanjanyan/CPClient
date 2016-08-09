@@ -99,10 +99,7 @@ public class MainActivity extends AppCompatActivity
                 artistConsumer.attachProvider(this);
             }
         } else {
-            Toast toast = new Toast(this);
-            toast.setText(R.string.no_data);
-            toast.setDuration(Toast.LENGTH_SHORT);
-            toast.show();
+            Toast.makeText(this, R.string.no_data, Toast.LENGTH_SHORT).show();
         }
     }
 
