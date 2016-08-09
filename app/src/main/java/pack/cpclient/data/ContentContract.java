@@ -1,4 +1,4 @@
-package pack.cpclient;
+package pack.cpclient.data;
 
 import android.provider.BaseColumns;
 
@@ -8,6 +8,7 @@ public interface ContentContract {
     String AUTHORITY = "pack.cpserver.cp.ContentProvider";
 
     String ARTISTS = "ARTISTS";
+    String GENRES_JOIN_DELIMITER = "$";
 
     interface Artists extends BaseColumns {
         @SuppressWarnings("unused")
@@ -21,6 +22,4 @@ public interface ContentContract {
                 SMALL_COVER = "SMALL_COVER",
                 BIG_COVER = "BIG_COVER";
     }
-
-    String GENRES_JOIN_DELIMITER = "$";
 }
