@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import pack.cpclient.R;
 import pack.cpclient.data.Artist;
 
@@ -21,6 +22,7 @@ public class DescriptionFragment extends DialogFragment {
     TextView name;
     @BindView(R.id.description_description)
     TextView description;
+    private Unbinder unbinder;
 
     @Nullable
     @Override
@@ -28,12 +30,18 @@ public class DescriptionFragment extends DialogFragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_description, container, false);
 
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
         Artist artist = getArguments().getParcelable(ARGUMENT_ARTIST);
         assert artist != null;
         name.setText(artist.name());
         description.setText(artist.description());
 
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }

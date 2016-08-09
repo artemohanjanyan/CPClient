@@ -14,6 +14,7 @@ import com.squareup.picasso.Picasso;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import pack.cpclient.R;
 import pack.cpclient.data.Artist;
 
@@ -26,13 +27,14 @@ public class PhotoFragment extends Fragment {
     Button button;
     private MoreClickListener moreClickListener;
     private Artist artist;
+    private Unbinder unbinder;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_photo, container, false);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
 
         if (getArguments() != null) {
             artist = getArguments().getParcelable(ARGUMENT_ARTIST);
@@ -48,6 +50,12 @@ public class PhotoFragment extends Fragment {
         }
 
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 
     @Override

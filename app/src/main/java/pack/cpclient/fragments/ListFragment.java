@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import pack.cpclient.R;
 import pack.cpclient.activity.ArtistConsumer;
 import pack.cpclient.activity.ArtistProvider;
@@ -22,19 +23,26 @@ public class ListFragment extends Fragment implements ArtistClickListener, Artis
     RecyclerView recyclerView;
     private Adapter adapter;
     private ArtistClickListener artistClickListener;
+    private Unbinder unbinder;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list, container, false);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new Adapter(this);
         recyclerView.setAdapter(adapter);
         ((ArtistProvider) getActivity()).setArtistConsumer(this);
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 
     public void setArtistClickListener(ArtistClickListener artistClickListener) {

@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import pack.cpclient.R;
 import pack.cpclient.activity.ArtistConsumer;
 import pack.cpclient.activity.ArtistProvider;
@@ -30,13 +31,14 @@ public class ViewPagerFragment extends Fragment
     @BindView(R.id.view_pager)
     ViewPager viewPager;
     private PagerAdapter pagerAdapter;
+    private Unbinder unbinder;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_view_pager, container, false);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
 
         pagerAdapter = new PagerAdapter(getChildFragmentManager(), this);
         viewPager.setAdapter(pagerAdapter);
@@ -45,6 +47,12 @@ public class ViewPagerFragment extends Fragment
         ((ArtistProvider) getActivity()).setArtistConsumer(this);
 
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 
     @Override
