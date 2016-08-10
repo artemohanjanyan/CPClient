@@ -7,5 +7,7 @@ public interface ArtistProvider {
 
     void setArtistConsumer(ArtistConsumer artistConsumer);
 
+    void resetArtistConsumer();
+
     int getCount();
 }

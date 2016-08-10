@@ -51,6 +51,7 @@ public class ViewPagerFragment extends Fragment
 
     @Override
     public void onDestroyView() {
+        ((ArtistProvider) getActivity()).resetArtistConsumer();
         super.onDestroyView();
         unbinder.unbind();
     }

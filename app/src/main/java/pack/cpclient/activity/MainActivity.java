@@ -125,6 +125,14 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    public void resetArtistConsumer() {
+        if (artistConsumer != null) {
+            artistConsumer.detachProvider();
+            artistConsumer = null;
+        }
+    }
+
+    @Override
     public int getCount() {
         return cursorArtistManager.getCount();
     }
